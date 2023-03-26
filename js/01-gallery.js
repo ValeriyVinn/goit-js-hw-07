@@ -45,4 +45,4 @@ function selectImage(event) {
   }
 }
 
-// console.log(basicLightbox)
+
