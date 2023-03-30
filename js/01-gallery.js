@@ -30,19 +30,21 @@ function selectImage(event) {
   }
 
   const largeImage = event.target.dataset.source;
-  const modal = basicLightbox.create(
-    `<img width="1280" height="854" src="${largeImage}">`
+  const instance = basicLightbox.create(
+    `<img width="1280" height="854" src="${largeImage}">`,
+    {
+      onShow: () => {
+        window.addEventListener("keydown", closeModal);
+      },
+      onClose: () => {
+        window.removeEventListener("keydown", closeModal);
+      },
+    }
   );
-  modal.show();
-
-  document.addEventListener("keydown", handleEscPress);
-
-  function handleEscPress(event) {
-    if (event.key === "Escape") {
-      modal.close();
-      document.removeEventListener("keydown", handleEscPress);
+  function closeModal(event) {
+    if (event.code === "Escape") {
+      instance.close();
     }
   }
+  instance.show();
 }
-
-
